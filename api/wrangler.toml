@@ -1,40 +1,20 @@
-name = 'img'
+name = 'jarmage' # subdomain.workers.dev 前缀
 workers_dev = true
 type = 'webpack'
 webpack_config = 'webpack.config.js'
 compatibility_date = '2021-12-14'
 
+[vars]
+ENV = 'prod'
+USERNAME = '787390988@qq.com' # 用户名
+PASSWORD = 'mm51378' # 密码
+TTL = 3600 # cacheTtl 缓存时间 (>60)
+DEDUPE = false # 是否开启去重。开启则会使用文件的 arraybuffer 产生唯一 md5 并取前 8 位作为 id 覆盖原来的内容，会增加 CPU 消耗；不开启则会使用随机 8 位字符作为 id
 
-[env.dev]
+[[kv_namespaces]]
+binding = 'ImageKV'
+id = '3ff97e38ab5f49a7afcf0bd5147b0b7b' # 在 workers KV 页面创建 KV 后将 id 填入此
 
-  [env.dev.vars]
-  ENV = 'dev'
-  TTL = 60
-  DEDUPE = false
-
-  [[env.dev.kv_namespaces]]
-  binding = 'ImageKV'
-  preview_id = '873d3300fc41484fbce49b11d533a6b8'
-
-
-[env.prod]
-
-  [env.prod.vars]
-  ENV = 'prod'
-  USERNAME = 'byg'
-  PASSWORD = '1234'
-  TTL = 3600
-  DEDUPE = false
-
-  [[env.prod.kv_namespaces]]
-  binding = 'ImageKV'
-  id = '873d3300fc41484fbce49b11d533a6b8'
-
-  [env.prod.site]
-  bucket = '../app/dist'
-  entry-point = 'workers-site'
-
-
-[dev]
-ip = '127.0.0.1'
-port = 8787
+[site]
+bucket = '../app/dist'
+entry-point = 'workers-site'
